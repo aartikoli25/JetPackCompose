@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JetpackComposeApplication</string>
+    <string name="title_activity_core_compose">CoreComposeActivity</string>
+    <string name="title_activity_dynamic_content">DynamicContentActivity</string>
+</resources>
