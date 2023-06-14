@@ -2,4 +2,6 @@
     <string name="app_name">JetpackComposeApplication</string>
     <string name="title_activity_core_compose">CoreComposeActivity</string>
     <string name="title_activity_dynamic_content">DynamicContentActivity</string>
+    <string name="title_activity_dynamic_content_list">DynamicContentListActivity</string>
+    <string name="title_activity_profile_card_layout">ProfileCardLayoutActivity</string>
 </resources>

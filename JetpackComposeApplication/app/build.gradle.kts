@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.material3)
     implementation(platform(libs.compose.bom))
     implementation(platform(libs.compose.bom))
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

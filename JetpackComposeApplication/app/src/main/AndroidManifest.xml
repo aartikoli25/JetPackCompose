@@ -13,17 +13,27 @@
         android:theme="@style/Theme.JetpackComposeApplication"
         tools:targetApi="31">
         <activity
+            android:name=".DynamicContentListActivity"
+            android:exported="false"
+            android:label="@string/title_activity_profile_card_layout"
+            android:theme="@style/Theme.JetpackComposeApplication" />
+        <activity
+            android:name=".DynamicContentActivity"
+            android:exported="false"
+            android:label="@string/title_activity_dynamic_content_list"
+            android:theme="@style/Theme.JetpackComposeApplication" />
+        <activity
             android:name=".SimpleTextActivity"
             android:exported="false"
             android:label="@string/title_activity_core_compose"
-            android:theme="@style/Theme.JetpackComposeApplication"/>
+            android:theme="@style/Theme.JetpackComposeApplication" />
         <activity
             android:name=".CoreComposeActivity"
             android:exported="false"
             android:label="@string/title_activity_core_compose"
             android:theme="@style/Theme.JetpackComposeApplication" />
         <activity
-            android:name=".DynamicContentActivity"
+            android:name=".ProfileCardLayoutActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.JetpackComposeApplication">
