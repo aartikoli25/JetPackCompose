@@ -54,14 +54,18 @@ class ProfileCardLayoutActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ProfileCardScreen() {
+fun ProfileCardScreen(userProfiles: List<UserProfile> = userProfileList) {
     Scaffold(topBar = { AppBar() }) { innerPadding ->
         Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
         ) {
-            ProfileCard()
+            Column {
+                for (userProfile in userProfiles) {
+                    ProfileCard(userProfile = userProfile)
+                }
+            }
         }
     }
 }
@@ -70,70 +74,71 @@ fun ProfileCardScreen() {
 @Composable
 fun AppBar() {
     TopAppBar(
-        navigationIcon = {
-            Icon(Icons.Filled.Home, "Home Icon", Modifier.padding(horizontal = 12.dp))
-        },
-        title = { Text(text = "My Contacts") },
-        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Cyan)
+            navigationIcon = {
+                Icon(Icons.Filled.Home, "Home Icon", Modifier.padding(horizontal = 12.dp))
+            },
+            title = { Text(text = "My Contacts") },
+            colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Cyan)
     )
 }
 
 @Composable
-fun ProfileCard() {
+fun ProfileCard(userProfile: UserProfile) {
     Card(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-            .wrapContentHeight(align = Alignment.Top)
-            .shadow(elevation = 8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        )
+            modifier = Modifier
+                    .padding(top = 8.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
+                    .fillMaxWidth()
+                    .wrapContentHeight(align = Alignment.Top)
+                    .shadow(elevation = 8.dp),
+            colors = CardDefaults.cardColors(
+                    containerColor = Color.White
+            )
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
         ) {
-            ProfilePicture()
-            ProfileContent()
+            ProfilePicture(userProfile.drawableId, userProfile.status)
+            ProfileContent(userProfile.name, userProfile.status)
         }
     }
 }
 
 @Composable
-fun ProfilePicture() {
+fun ProfilePicture(drawableId: Int, onlineStatus: Boolean) {
     Card(
-        shape = CircleShape,
-        border = BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.lightGreen),
-        modifier = Modifier
-            .padding(16.dp)
-            .shadow(elevation = 4.dp)
+            shape = CircleShape,
+            border = BorderStroke(width = 2.dp, color = if (onlineStatus) MaterialTheme.colorScheme.lightGreen else Color.Red),
+            modifier = Modifier
+                    .padding(16.dp)
+                    .shadow(elevation = 4.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_profile_picture),
-            contentDescription = "Profile picture",
-            modifier = Modifier.size(80.dp),
-            contentScale = ContentScale.Crop
+                painter = painterResource(id = drawableId),
+                contentDescription = "Profile picture",
+                modifier = Modifier.size(80.dp),
+                contentScale = ContentScale.Crop
         )
     }
 }
 
 @Composable
-fun ProfileContent() {
+fun ProfileContent(userName: String, onlineStatus: Boolean) {
     Column(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
+            modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()
     ) {
         Text(
-            text = "Janice Fan",
-            style = MaterialTheme.typography.headlineSmall
+                text = userName,
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.alpha(if (!onlineStatus) 0.7f else 1f)
         )
         Text(
-            text = "Active Now",
-            style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.alpha(0.7f)
+                text = if (onlineStatus) "Active Now" else "Offline",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.alpha(0.7f)
         )
     }
 }
