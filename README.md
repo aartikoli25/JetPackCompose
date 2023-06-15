@@ -1,10 +1,10 @@
 # JetPackCompose
 
 <b>Screenshots</b>
-SimpleTextActivity            |  ProfileCardLayoutActivity            |  DynamicContentListActivity
+ProfileCardLayoutActivity            |  ProfileCardLayoutActivity            |  DynamicContentListActivity
 :-------------------------:|:-------------------------:|:-------------------------:
-![](JetpackComposeApplication%2Fscreenshots%2FSimpleTextActivity.png)  |  ![](JetpackComposeApplication%2Fscreenshots%2FProfileCardLayoutActivity.png)  |  ![](JetpackComposeApplication%2Fscreenshots%2FDynamicContentListActivity.png)
+![](JetpackComposeApplication%2Fscreenshots%2FProfileCardLayoutActivity-1.png)  |  ![](JetpackComposeApplication%2Fscreenshots%2FProfileCardLayoutActivity-2.png)  |  ![](JetpackComposeApplication%2Fscreenshots%2FDynamicContentListActivity.png)
 
-|                          DynamicContentActivity                           |                          CoreComposeActivity                           |
+|                          DynamicContentActivity                           |                          CoreComposeActivity                           |                           SimpleTextActivity
 |:-------------------------------------------------------------------------:|:----------------------------------------------------------------------:|
-| ![](JetpackComposeApplication%2Fscreenshots%2FDynamicContentActivity.png) | ![](JetpackComposeApplication%2Fscreenshots%2FCoreComposeActivity.png) |
+| ![](JetpackComposeApplication%2Fscreenshots%2FDynamicContentActivity.png) | ![](JetpackComposeApplication%2Fscreenshots%2FCoreComposeActivity.png) | ![](JetpackComposeApplication%2Fscreenshots%2FSimpleTextActivity.png)
