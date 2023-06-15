@@ -31,7 +31,7 @@ class DynamicContentListActivity : ComponentActivity() {
 @Composable
 fun DynamicContentListScreen() {
     val greetingListState =
-        remember { mutableStateListOf<String>("Jack", "Wendy", "Janice", "Eben") }
+        remember { mutableStateListOf<String>("Harry", "Dia", "Peter") }
     val newNameStateContent = remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),

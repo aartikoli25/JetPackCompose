@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -57,12 +59,12 @@ class ProfileCardLayoutActivity : ComponentActivity() {
 fun ProfileCardScreen(userProfiles: List<UserProfile> = userProfileList) {
     Scaffold(topBar = { AppBar() }) { innerPadding ->
         Surface(
-                modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
-            Column {
-                for (userProfile in userProfiles) {
+            LazyColumn() {
+                items(userProfiles) { userProfile ->
                     ProfileCard(userProfile = userProfile)
                 }
             }
@@ -74,30 +76,30 @@ fun ProfileCardScreen(userProfiles: List<UserProfile> = userProfileList) {
 @Composable
 fun AppBar() {
     TopAppBar(
-            navigationIcon = {
-                Icon(Icons.Filled.Home, "Home Icon", Modifier.padding(horizontal = 12.dp))
-            },
-            title = { Text(text = "My Contacts") },
-            colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Cyan)
+        navigationIcon = {
+            Icon(Icons.Filled.Home, "Home Icon", Modifier.padding(horizontal = 12.dp))
+        },
+        title = { Text(text = "My Contacts") },
+        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Cyan)
     )
 }
 
 @Composable
 fun ProfileCard(userProfile: UserProfile) {
     Card(
-            modifier = Modifier
-                    .padding(top = 8.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
-                    .fillMaxWidth()
-                    .wrapContentHeight(align = Alignment.Top)
-                    .shadow(elevation = 8.dp),
-            colors = CardDefaults.cardColors(
-                    containerColor = Color.White
-            )
+        modifier = Modifier
+            .padding(top = 8.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
+            .fillMaxWidth()
+            .wrapContentHeight(align = Alignment.Top)
+            .shadow(elevation = 8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
     ) {
         Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
         ) {
             ProfilePicture(userProfile.drawableId, userProfile.status)
             ProfileContent(userProfile.name, userProfile.status)
@@ -108,17 +110,20 @@ fun ProfileCard(userProfile: UserProfile) {
 @Composable
 fun ProfilePicture(drawableId: Int, onlineStatus: Boolean) {
     Card(
-            shape = CircleShape,
-            border = BorderStroke(width = 2.dp, color = if (onlineStatus) MaterialTheme.colorScheme.lightGreen else Color.Red),
-            modifier = Modifier
-                    .padding(16.dp)
-                    .shadow(elevation = 4.dp)
+        shape = CircleShape,
+        border = BorderStroke(
+            width = 2.dp,
+            color = if (onlineStatus) MaterialTheme.colorScheme.lightGreen else Color.Red
+        ),
+        modifier = Modifier
+            .padding(16.dp)
+            .shadow(elevation = 4.dp)
     ) {
         Image(
-                painter = painterResource(id = drawableId),
-                contentDescription = "Profile picture",
-                modifier = Modifier.size(80.dp),
-                contentScale = ContentScale.Crop
+            painter = painterResource(id = drawableId),
+            contentDescription = "Profile picture",
+            modifier = Modifier.size(80.dp),
+            contentScale = ContentScale.Crop
         )
     }
 }
@@ -126,19 +131,19 @@ fun ProfilePicture(drawableId: Int, onlineStatus: Boolean) {
 @Composable
 fun ProfileContent(userName: String, onlineStatus: Boolean) {
     Column(
-            modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
     ) {
         Text(
-                text = userName,
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.alpha(if (!onlineStatus) 0.7f else 1f)
+            text = userName,
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.alpha(if (!onlineStatus) 0.7f else 1f)
         )
         Text(
-                text = if (onlineStatus) "Active Now" else "Offline",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.alpha(0.7f)
+            text = if (onlineStatus) "Active Now" else "Offline",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.alpha(0.7f)
         )
     }
 }
