@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,7 +35,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.jetpackcomposeapplication.ui.theme.MyTheme
 import com.example.jetpackcomposeapplication.ui.theme.lightGreen
@@ -44,8 +50,21 @@ class ProfileCardLayoutActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                ProfileCardScreen()
+                UsersApplication()
             }
+        }
+    }
+}
+
+@Composable
+fun UsersApplication(userProfiles: List<UserProfile> = userProfileList) {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "users_list") {
+        composable(route = "users_list") {
+            ProfileCardScreen(userProfiles, navController)
+        }
+        composable(route = "user_details") {
+            UserProfileDetailsScreen()
         }
     }
 }
@@ -53,7 +72,7 @@ class ProfileCardLayoutActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun ProfileCardScreen(userProfiles: List<UserProfile> = userProfileList) {
+fun ProfileCardScreen(userProfiles: List<UserProfile>, navController: NavHostController?) {
     Scaffold(topBar = { AppBar() }) { innerPadding ->
         Surface(
             modifier = Modifier
@@ -62,8 +81,32 @@ fun ProfileCardScreen(userProfiles: List<UserProfile> = userProfileList) {
         ) {
             LazyColumn() {
                 items(userProfiles) { userProfile ->
-                    ProfileCard(userProfile = userProfile)
+                    ProfileCard(userProfile = userProfile) {
+                        navController?.navigate("user_details")
+                    }
                 }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun UserProfileDetailsScreen(userProfile: UserProfile = userProfileList[0]) {
+    Scaffold(topBar = { AppBar() }) { innerPadding ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                ProfilePicture(userProfile.pictureUrl, userProfile.status, 240.dp)
+                ProfileContent(userProfile.name, userProfile.status, Alignment.CenterHorizontally)
             }
         }
     }
@@ -82,12 +125,13 @@ fun AppBar() {
 }
 
 @Composable
-fun ProfileCard(userProfile: UserProfile) {
+fun ProfileCard(userProfile: UserProfile, clickAction: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(top = 8.dp, bottom = 4.dp, start = 16.dp, end = 16.dp)
             .fillMaxWidth()
-            .wrapContentHeight(align = Alignment.Top),
+            .wrapContentHeight(align = Alignment.Top)
+            .clickable(onClick = { clickAction.invoke() }),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
@@ -100,14 +144,14 @@ fun ProfileCard(userProfile: UserProfile) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            ProfilePicture(userProfile.pictureUrl, userProfile.status)
-            ProfileContent(userProfile.name, userProfile.status)
+            ProfilePicture(userProfile.pictureUrl, userProfile.status, 72.dp)
+            ProfileContent(userProfile.name, userProfile.status, Alignment.Start)
         }
     }
 }
 
 @Composable
-fun ProfilePicture(pictureUrl: String, onlineStatus: Boolean) {
+fun ProfilePicture(pictureUrl: String, onlineStatus: Boolean, imageSize: Dp) {
     Card(
         shape = CircleShape,
         border = BorderStroke(
@@ -124,24 +168,24 @@ fun ProfilePicture(pictureUrl: String, onlineStatus: Boolean) {
         AsyncImage(
             model = pictureUrl,
             contentDescription = "Profile picture description",
-            modifier = Modifier.size(72.dp)
+            modifier = Modifier.size(imageSize)
         )
         // Using Image
-/*        Image(
-            painter = painterResource(id = drawableId),
-            contentDescription = "Profile picture",
-            modifier = Modifier.size(80.dp),
-            contentScale = ContentScale.Crop
-        )*/
+        /*        Image(
+                    painter = painterResource(id = drawableId),
+                    contentDescription = "Profile picture",
+                    modifier = Modifier.size(80.dp),
+                    contentScale = ContentScale.Crop
+                )*/
     }
 }
 
 @Composable
-fun ProfileContent(userName: String, onlineStatus: Boolean) {
+fun ProfileContent(userName: String, onlineStatus: Boolean, alignment: Alignment.Horizontal) {
     Column(
         modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalAlignment = alignment
     ) {
         Text(
             text = userName,
@@ -158,8 +202,16 @@ fun ProfileContent(userName: String, onlineStatus: Boolean) {
 
 @Preview(showBackground = true)
 @Composable
-fun ProfileCardLayoutPreview() {
+fun UserProfileDetailsScreenPreview() {
     MyTheme {
-        ProfileCardScreen()
+        UserProfileDetailsScreen()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProfileCardScreenPreview() {
+    MyTheme {
+        ProfileCardScreen(userProfiles = userProfileList, null)
     }
 }
