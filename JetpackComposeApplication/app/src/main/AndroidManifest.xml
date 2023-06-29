@@ -15,6 +15,11 @@
         android:theme="@style/Theme.JetpackComposeApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ProfileCardLayoutActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mealz"
+            android:theme="@style/Theme.JetpackComposeApplication" />
+        <activity
             android:name=".DynamicContentListActivity"
             android:exported="false"
             android:label="@string/title_activity_profile_card_layout"
@@ -35,7 +40,7 @@
             android:label="@string/title_activity_core_compose"
             android:theme="@style/Theme.JetpackComposeApplication" />
         <activity
-            android:name=".ProfileCardLayoutActivity"
+            android:name=".mealzApp.ui.meals.MealzActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.JetpackComposeApplication">
