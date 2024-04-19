@@ -91,6 +91,9 @@ fun MealDetailsScreen(meal: MealResponse?) {
                     Text(text = dummyItem, modifier = Modifier.padding(24.dp))
                 }
             }
+
+            // Showing description
+            // Text(text = meal?.description ?: "default_description", modifier = Modifier.padding(24.dp))
         }
     }
 }
