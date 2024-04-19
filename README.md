@@ -11,7 +11,7 @@ ProfileCardLayoutActivity            |  ProfileCardLayoutActivity            |  
 
 |                          MealsCategoriesScreen                           |                          MealDetailsScreen                           |                          MealDetailsScreen                           |
 |:-------------------------------------------------------------------------:|:----------------------------------------------------------------------:|:---------------------------------------------------------------------:|
-| ![](JetpackComposeApplication%2Fscreenshots%2FMealsCategoriesScreen.png) | ![](JetpackComposeApplication%2Fscreenshots%2FMealDetailsScreen-3.png.png) | ![](JetpackComposeApplication%2Fscreenshots%2FMealDetailsScreen-4.png.png) |
+| ![](JetpackComposeApplication%2Fscreenshots%2FMealsCategoriesScreen.png) | ![](JetpackComposeApplication%2Fscreenshots%2FMealDetailsScreen-3.png) | ![](JetpackComposeApplication%2Fscreenshots%2FMealDetailsScreen-4.png) |
 
 |                          DynamicContentActivity                           |                          CoreComposeActivity                           |                          SimpleTextActivity                           |
 |:-------------------------------------------------------------------------:|:----------------------------------------------------------------------:|:---------------------------------------------------------------------:|
