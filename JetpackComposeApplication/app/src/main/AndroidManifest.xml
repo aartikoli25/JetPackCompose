@@ -40,7 +40,7 @@
             android:label="@string/title_activity_core_compose"
             android:theme="@style/Theme.JetpackComposeApplication" />
         <activity
-            android:name=".mealzApp.ui.meals.MealzActivity"
+            android:name=".mealzApp.ui.MealsActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.JetpackComposeApplication">
